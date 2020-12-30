@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    20-20-20 Timer
+{% endblock %}
+
+{% block main %}
+<div class="timerdiv">
+    <p id = "startstaringtxt">You can look at a screen now.</p>
+    <p id = "timer">{{ startmin }} : {{ startsec }}<p>
+    <button id = "startstop">Start</button>
+    <a href = "/timer">Click here to choose a different loadout!</a>
+</div>
+
+<p class="normaltext">Listen for these sounds!</p>
+<button id = "audio">Start the stare interval sound</button>
+<button id = "audioend">End of stare interval sound</button>
+<script>
+    var timer = document.getElementById('timer');
+    var button = document.querySelector('#startstop');
+    // turn the starting amount of minutes (from the form ) into seconds
+    var time = '{{ startmin }}'*60 + '{{startsec}}'*1 ;
+
+    // staremin is length of the staring interval in 
+
+    var inttime = 20;
+
+    // pauseflag is basically a flag to store whether timer is pause or not 
+    // true means that the timer is paused
+    var pauseflag = true;
+
+    // stareflag is a flag to keep track of whether we are on the stare interval or not
+    // if the stareflag is true then it's a the stare interval and user is supposed to be staring
+    var stareflag = false;
+
+    var audio = null;
+
+    function playstartstare() {
+        audio = new Audio('static/startstaring.mp3');
+        audio.play();
+    }
+    // audio for start of stare interval 
+    document.querySelector('#audio').addEventListener("click", playstartstare);
+
+    function playstopstare () {
+        audio = new Audio('static/stopstaring.mp3')
+        audio.play();
+    }
+
+    // audio for end of stare interval 
+    document.querySelector('#audioend').addEventListener("click", playstopstare);
+    
+    // for when the start/stop button is clicked
+    button.addEventListener("click", function changebutton() {
+        // if the timer has not yet started running and is paused
+        if (pauseflag == true)
+        {
+            //start timer
+            handle = setInterval(updateCountdown, 1000);
+            // turn the start button into a pause button
+            pauseflag = false;
+            // change the button to say pause.
+            button.innerHTML = "Pause";
+        }
+        else
+        {
+            // pause the timer
+            clearInterval(handle);
+            //turn pause button to start button
+            pauseflag = true;
+            // change the button to say start
+            button.innerHTML = "Start";
+        }
+    })
+
+    function updateCountdown() {
+        // if the countdown timer has reached zero
+        if (time == 0)
+        {
+            // check what interval it is 
+            // if stareflag is false start the stare interval
+            if (stareflag == false) 
+            {
+                // play the sound for start of the stare interval
+                playstartstare();
+                // change the time from normal countdown time to stare interval time
+                time = '{{ intmin }}'*60 + '{{ intsec }}'*1;
+                // display the text to start staring
+                document.getElementById("startstaringtxt").innerHTML = "Start staring at something 20 feet away!";
+                // switch the stare flag to indicate that it is currently the stare interval
+                stareflag = true;
+            }
+            // if stareflag is up start the screenusage interval
+            else
+            {
+                // play the sound for end of stare interval
+                playstopstare();
+                // change the time from stare interval time to normal countdown time
+                time = '{{ startmin }}'*60 + '{{startsec}}'*1;
+                // switch the stare flag to indicate that it is end of stare interval and start of normal countdown
+                document.getElementById("startstaringtxt").innerHTML = "You can look at a screen now.";
+                stareflag = false;
+            }
+        } 
+        console.log(time);
+        var minutes = Math.floor(time / 60);
+        var seconds = time % 60;
+        console.log(minutes);
+        console.log(seconds);
+        timer.innerHTML = format(minutes, seconds);
+        time--;
+        console.log(minutes);
+        console.log(seconds);
+        timer.innerHTML = format(minutes, seconds);
+    }
+
+    // code to format time like 00:00
+    function format(minf, secf) {
+        console.log(minf);
+        console.log(secf);
+        if (minf < 10)
+        {
+            minf = "0" + minf;
+        }
+        if (secf < 10)
+        {
+            secf = "0" + secf;
+        }
+        return minf + ":" + secf;
+    }
+
+    // format the timer before windows load to be the values the user pass in
+    window.onload = function() {
+        timer.innerHTML = format('{{ startmin }}', '{{ startsec }}');
+    }
+</script>
+{% endblock %}

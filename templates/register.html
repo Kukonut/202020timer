@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block main %}
+<form action="/register" id = "form" method="POST" onsubmit="return checkform();">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password" id="password">
+    <div class="passmessage">
+        <h3>Password must have the following</h3>
+        <div class = "invalid">
+            <p id = "letter"> 1 letter</p>
+            <p id = "number"> 1 number</p>
+            <p id = "minlength"> Minimum 8 characters long</p>
+        </div>
+    </div>
+    <input type="password" name="confirmation" placeholder="Password(again)">
+    <button type="submit" class="submitbutton">Register</button>
+</form>
+
+<script>
+    // code for password checking
+    var password = document.getElementById("password");
+
+    // every time the user types, check if requirements are met change the css
+    password.onkeyup = function() {
+        // check for letters
+        if (password.value.match(/[A-Za-z]/g))
+        {
+            document.getElementById("letter").classList.remove("invalid");
+            document.getElementById("letter").classList.add("valid");
+        }
+        else
+        {
+            document.getElementById("letter").classList.remove("valid");
+            document.getElementById("letter").classList.add("invalid");
+        }
+        // check for numbers
+        var numbers = /[0-9]/g;
+        if (password.value.match(numbers))
+        {
+            document.getElementById("number").classList.remove("invalid");
+            document.getElementById("number").classList.add("valid");
+        }
+        else
+        {
+            document.getElementById("number").classList.remove("valid");
+            document.getElementById("number").classList.add("invalid");
+        }
+        // check for minimum 8 characters
+        if (password.value.length >= 8)
+        {
+            document.getElementById("minlength").classList.remove("invalid");
+            document.getElementById("minlength").classList.add("valid");
+        }
+        else
+        {
+            document.getElementById("minlength").classList.remove("valid");
+            document.getElementById("minlength").classList.add("invalid");
+        }
+    }
+
+    function checkform() {
+        // if pass all validations
+        if (password.value.match(/[A-Za-z]/g) && password.value.match(/[0-9]/g) && password.value.length >= 8)
+        {
+            return true;
+        }   
+        else 
+        {
+            alert("You don't meet password requirements");
+            return false;
+        }
+    }
+
+
+</script>
+{% endblock %}

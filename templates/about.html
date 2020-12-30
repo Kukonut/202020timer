@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block main %}
+<div class = "banner">
+    <div class = "banner-content">
+        <h1>20-20-20 Timer</h1>
+        <p>Every 20 minutes, stare at something <br> 20 feet away for 20 seconds.</p>
+    </div>
+</div>
+<div class = "info">
+    <h1>About</h1>
+    <p>
+        The 20-20-20 rule is for reducing eye strain during long periods of
+        screen usage. The rule says that every 20 minutes spent looking at a screen,
+        you should look at something 20 feet away for 20 seconds. The rule can help
+        remind you that you should take frequent breaks away from the screen. 
+        The timer tool on this webapp is a timer that helps alert you when to stare
+        at something 20 feet away and when you can use screentime. The default loadout
+        is 20 minutes for screentime and 20 seconds for the staring interval. However
+        you can make your own loadouts with your own perferred times. The timer keeps 
+        going as long as you leave the window open in the background so you don't have 
+        to worry about restarting the timer. However, you have to start the timer initially by 
+        yourself.
+    </p>
+</div>
+
+<script>
+    // some javascript to animate the info in onscroll
+    //every time the user scrolls
+    window.addEventListener('scroll', function () {
+        // scrollable is height of entire document minus the height of the window
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        console.log(scrollable);
+        // scrolled is how far down the user has scrolled down
+        const scrolled = window.scrollY;
+        console.log(scrolled);
+        // when the user has scrolled down far enough and element hasn't faded in yet, animate the text in
+        if (scrolled > (scrollable / 4))
+        {
+            document.querySelector(".info").classList.add("fade-in");
+        }
+    })
+</script>
+{% endblock %}

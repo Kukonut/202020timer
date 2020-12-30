@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    20-20-20 Timer Set Time
+{% endblock %}
+
+{% block main %}
+<p class= "normaltext">Select a time set</p>
+<form action = "/timer" method = "POST">
+    <select name = "timeloadout">
+        <option>Default</option>
+        <script>
+            console.log(loadlist)
+        </script>
+        {% for i in range(loadlist|length) %}
+            <option>{{ loadlist[i][1] }}</option>
+        {% endfor %}
+    </select>
+    <button type = "submit">Use loadout</button>
+</form>
+{% endblock %}

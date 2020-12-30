@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Manage Loadouts
+{% endblock %}
+
+{% block main %}
+<!--Display current loadouts-->
+<div class="manageblock">
+    <h1>All of your current loadouts</h1>
+    <!--Loop through the user's loadout list and display all their loadouts-->
+    <table class = "loadtable">
+        <tr>
+            <th>Loadout Name</th>
+            <th>Time between the staring session (min:secs)</th>
+            <th>Time for staring sessions (min:secs)</th>
+        </tr>
+        <tr>
+            <td>Default</td>
+            <td>20:00</td>
+            <td>0:20</td>
+        </tr>
+        {% for i in range(loadlist|length) %}
+            <tr>
+                <td>{{ loadlist[i][1] }}</td>
+                {% if loadlist[i][3] < 10 %}
+                    <td>{{ loadlist[i][2] }}:0{{ loadlist[i][3] }}</td>
+                {% else %}
+                    <td>{{ loadlist[i][2] }}:{{ loadlist[i][3] }}</td>
+                {% endif %}
+                {% if loadlist[i][5] < 10 %}
+                    <td>{{ loadlist[i][4] }}:0{{ loadlist[i][5] }}</td>
+                {% else %}
+                    <td>{{ loadlist[i][4] }}:{{ loadlist[i][5] }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!--Make a loadout-->
+<div class="manageblock">
+    <h1>Make a new loadout</h1>
+    <form action = "/manage" method = "POST">
+        <p> Name of the new load out (Can't be the same name as one you already have)</p>
+        <input type = "text" name = "loadname" required>
+        <p> Minutes for the time in between staring sessions (Default load is 20 minutes) </p>
+        <input type = "number" name ="startmin" min = "0" max = "120" required>
+        <p> Seconds for the time in between staring session (Default load is 0 seconds</p>
+        <input type = "number" name = "startsec" min = "0" max = "60" required>
+        <p> Minutes for the staring session (Default load is 0 minutes)</p>
+        <input type = "number" name = "intmin" min = "0" max = "60" required>
+        <p> Seconds for the staring session (Default load is 20 seconds) </p>
+        <input type = "number" name = "intsec" min = "0" max = "60" required>
+        <button type = "submit" name="manageform" value="make" id = "make"> Make new loadout </button>
+    </form>
+</div>
+
+<!--Delete a loadout-->
+<div class="manageblock">
+    <h1>Delete a loadout</h1>
+    <form action = "/manage" method = "POST">
+        <p>Name of the load out you want to delete</p>
+        <select name = "loadname">
+            {% for i in range(loadlist|length) %}
+                <option>{{ loadlist[i][1] }}</option> 
+            {% endfor %}
+        </select>
+        <button type = "submit" name="manageform" value="delete" id = "delete">Delete a loadout</button>
+    </form>
+</div>
+
+<!--Update a loadout-->
+<div class="manageblock">
+    <h1>Update an existing loadout</h1>
+    <form action = "/manage" method = "POST">
+        <p>Name of the existing loadout you want to update/change</p>
+        <select name = "updateload">
+            {% for i in range(loadlist|length) %}
+                <option>{{ loadlist[i][1] }}</option>
+            {% endfor %}
+        </select>
+        <p>New loadout name</p>
+        <input type = "text" name = "nloadname" required>
+        <p>New amount of minutes between staring sessions</p>
+        <input type = "number" name ="nstartmin" min = "0" max = "120" required>
+        <p>New amount of seconds between staring sessions</p>
+        <input type = "number" name = "nstartsec" min = "0" max = "60" required>
+        <p>New amount of minutes for the staring sessions</p>
+        <input type = "number" name = "nintmin" min = "0" max = "60" required>
+        <p>New amounts of seconds for the staring sesions</p>
+        <input type = "number" name = "nintsec" min = "0" max = "60" required>
+        <button type = "submit" name = "manageform" value = "update" id = "update">Update a loadout</button>
+
+        <!-- Javascript for when user selects whicch loadout to change the numbers to update changes-->
+        <script> 
+            // using tojson, var loadlist, is a list of all the users loadouts
+            var loadlist = {{ loadlist | tojson }};
+            console.log(loadlist);
+            // when something selected
+            document.querySelector('[name="updateload"]').addEventListener("change", function(){
+                var currentload;
+                // loop through all the loadouts the user has and see which one matches one selected
+                for (i = 0; i < loadlist.length; i++)
+                {
+                    if (document.querySelector('[name="updateload"]').value == loadlist[i][1])
+                    {
+                        console.log(loadlist)
+                        currentload = loadlist[i];
+                        console.log(currentload)
+                        break;
+                    }
+                }
+                // change the stuff in the input box to match what the user currently has for the loadout
+                document.querySelector('[name="nloadname"]').value = currentload[1];
+                document.querySelector('[name="nstartmin"]').value = currentload[2];
+                document.querySelector('[name="nstartsec"]').value = currentload[3];
+                document.querySelector('[name="nintmin"]').value = currentload[4];
+                document.querySelector('[name="nintsec"]').value = currentload[5];
+            })
+
+            // function that for when window loads
+            window.onload = function() {
+                // check if there if the user has any loadouts
+                if (loadlist.length == 0)
+                {
+                    //disable buttons for delete and update forms
+                    document.getElementById("delete").disabled = true;
+                    document.getElementById("update").disabled = true;
+                }
+                else
+                {
+                    document.querySelector('[name="nloadname"]').value = loadlist[0][1];
+                    document.querySelector('[name="nstartmin"]').value = loadlist[0][2];
+                    document.querySelector('[name="nstartsec"]').value = loadlist[0][3];
+                    document.querySelector('[name="nintmin"]').value = loadlist[0][4];
+                    document.querySelector('[name="nintsec"]').value = loadlist[0][5];
+                }
+            }
+        </script>
+    </form>
+<div>
+
+{% endblock %}

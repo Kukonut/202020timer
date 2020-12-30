@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel = "stylesheet" type = "text/css" href="/static/style.css"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">20-20-20</a>
+        <!--If user is logged in-->
+        {% if session.user_id %}
+        <nav class = "normienav">
+            <ul>
+                <li><a href = "/timer">The Timer</a></li>
+            </ul>
+        </nav>
+        <nav class = "logstuff">
+            <ul>
+                <li><a href = "/manage">Manage Loadouts</a></li>
+                <li><a href="/logout">Log Out</a></li>
+            </ul>
+        </nav>
+        {% else %}
+        <nav class = "logstuff">
+            <ul>
+                <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+        {% endif %}
+    </header>
+    <!-- for flashing messsages -->
+    {% with messages = get_flashed_messages() %}
+        <!-- If there are any messages to be flashed-->
+        {% if messages %}
+            <!-- Loop through the message storage and show the messages-->
+            {% for message in messages %}
+            <div class="alert" role="alert">
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+</body>
+</html>

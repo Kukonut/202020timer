@@ -1,0 +1,208 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background-color: lightskyblue;
+    overflow: hidden;
+}
+
+.logo {
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    padding:13px 16px;
+    text-decoration: none;
+    color: black;
+    background-color: lightskyblue;
+}
+
+nav {
+    float: left;
+}
+
+.logstuff {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    padding-top: 18px;
+    position: relative;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+    padding: 18px 16px;
+    margin: 0;
+}
+
+nav a:hover {
+    color: white;
+    background-color: lightblue;
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 0%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+.banner {
+    margin: 0;
+    padding: 0;
+    background-image: url("https://www.thebeijinger.com/sites/default/files/thebeijinger/blog-images/345221/womens-eye-health-month-1024x451.jpg");
+    background-size: cover;
+}
+.banner-content {
+    padding: 200px 200px 300px 100px;
+}
+
+.banner-content h1 {
+    margin: 0;
+    font-size:50px;
+}
+
+.banner-content p {
+    font-size: 40px;
+}
+
+input {
+    padding: 1em;
+    margin: 10px auto;
+    display: block;
+    font-size:1em;
+}
+
+button {
+    background-color: lightseagreen;
+    margin: 1em auto;
+    display: block;
+    outline: none;
+    padding: 0.5em;
+    font-size:1em;
+    color: black;
+}
+
+.alert {
+    border:1px solid black;
+    width: 100%;
+    background-color: lightpink;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.alert p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.info {
+    margin: 2em auto;
+    width: 50%;
+    background-color: lightskyblue;
+    padding: 5em;
+    line-height: 2em;
+    font-size: 1.5em;
+    opacity: 0;
+}
+
+.normaltext {
+    font-size: 50px;
+    text-align: center;
+    margin: 1em;
+}
+
+select {
+    font-size: 50px;
+    display: block;
+    margin: 1em auto;
+}
+
+#timer {
+    font-size: 5em;
+    text-align: center;
+}
+
+#startstaringtxt {
+    text-align:center;
+    margin-top: 1em;
+    font-size:2em;
+    color:red;
+}
+
+.timerdiv {
+    background-color: lightgoldenrodyellow;
+    margin: 3em 5em 6em;
+    padding: 2em;
+    text-align: center;
+}
+
+.manageblock {
+    background-color: lightgoldenrodyellow;
+    text-align: center;
+    font-size: large;
+    padding: 2em;
+    margin: 2em 5em;
+}
+
+.loadtable {
+    margin: auto;
+    border: 1px solid black;
+}
+
+.fade-in {
+    opacity:1;
+    animation-name: fadeIn;
+    animation-iteration-count:1;
+    animation-timing-function:ease-in;
+    animation-duration:0.5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+} 
+
+.passmessage {
+    text-align: center;
+}
+
+.invalid {
+    color: red;
+}
+
+.valid {
+    color: green;
+}
+
+.timerdiv a {
+    color:blue;
+}
+
+.timerdiv button {
+    margin-bottom: 2em;
+}

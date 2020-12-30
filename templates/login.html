@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<!-- send the form to the login route with the method POST-->
+<form action = "/login" method = "POST">
+    <input type="text" name="username" autocomplete="off" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit" class="submitbutton">Log In</button>
+</form>
+{% endblock %}
