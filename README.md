@@ -12,3 +12,4 @@ There is a register account feature with requirements for password and Login/Log
  
  It's not hosted online so you're probably going to have to just download the code to run it.
  
+ Run with   flask run    in the terminal.
