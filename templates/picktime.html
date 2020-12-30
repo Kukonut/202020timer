@@ -9,9 +9,6 @@
 <form action = "/timer" method = "POST">
     <select name = "timeloadout">
         <option>Default</option>
-        <script>
-            console.log(loadlist)
-        </script>
         {% for i in range(loadlist|length) %}
             <option>{{ loadlist[i][1] }}</option>
         {% endfor %}
