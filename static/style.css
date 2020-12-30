@@ -105,7 +105,6 @@ button {
 
 .alert {
     border:1px solid black;
-    width: 100%;
     background-color: lightpink;
     padding: 20px;
     margin-bottom: 20px;
