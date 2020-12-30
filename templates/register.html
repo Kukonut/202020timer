@@ -6,7 +6,7 @@ Register
 
 {% block main %}
 <form action="/register" id = "form" method="POST" onsubmit="return checkform();">
-    <input type="text" name="username" placeholder="Username">
+    <input type="text" autocomplete="off" name="username" placeholder="Username">
     <input type="password" name="password" placeholder="Password" id="password">
     <div class="passmessage">
         <h3>Password must have the following</h3>
