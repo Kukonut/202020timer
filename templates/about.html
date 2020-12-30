@@ -34,10 +34,8 @@
     window.addEventListener('scroll', function () {
         // scrollable is height of entire document minus the height of the window
         const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-        console.log(scrollable);
         // scrolled is how far down the user has scrolled down
         const scrolled = window.scrollY;
-        console.log(scrolled);
         // when the user has scrolled down far enough and element hasn't faded in yet, animate the text in
         if (scrolled > (scrollable / 4))
         {
