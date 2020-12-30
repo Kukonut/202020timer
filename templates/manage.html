@@ -96,7 +96,6 @@
         <script> 
             // using tojson, var loadlist, is a list of all the users loadouts
             var loadlist = {{ loadlist | tojson }};
-            console.log(loadlist);
             // when something selected
             document.querySelector('[name="updateload"]').addEventListener("change", function(){
                 var currentload;
@@ -105,9 +104,7 @@
                 {
                     if (document.querySelector('[name="updateload"]').value == loadlist[i][1])
                     {
-                        console.log(loadlist)
                         currentload = loadlist[i];
-                        console.log(currentload)
                         break;
                     }
                 }
