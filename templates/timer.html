@@ -102,22 +102,15 @@
                 stareflag = false;
             }
         } 
-        console.log(time);
         var minutes = Math.floor(time / 60);
         var seconds = time % 60;
-        console.log(minutes);
-        console.log(seconds);
         timer.innerHTML = format(minutes, seconds);
         time--;
-        console.log(minutes);
-        console.log(seconds);
         timer.innerHTML = format(minutes, seconds);
     }
 
     // code to format time like 00:00
     function format(minf, secf) {
-        console.log(minf);
-        console.log(secf);
         if (minf < 10)
         {
             minf = "0" + minf;
